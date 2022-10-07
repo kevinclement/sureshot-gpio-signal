@@ -1,33 +1,25 @@
-from gpiozero import LED
-from gpiozero import Button
+from gpiozero import OutputDevice
 from time import sleep
-from signal import pause
 import sys
-
 
 print("LED Signaler...by kevinc\n")
 print("Press ENTER to signal LED controller...")
 
-# myLED = LED(17)
-
-# def say_hello():
-#     print("Hello!")
-
-# button = Button(2)
-# # button.when_pressed = say_hello
-
-# button.when_pressed = myLED.on
-# button.when_released = myLED.off
-
-# pause()
+# GPIO pin hooked up to LED controller
+device = OutputDevice(17)
 
 while True:
-     # input
-    string = str(input())
-  
-    sys.stdout.write("Signaling LED controller...")
-    
-    # TODO really send signal and remove this sleep.
-    sleep(1)
+     # block on input
+     string = str(input())
+     sys.stdout.write("Signaling LED controller...")
 
-    print("DONE")
+     # send HIGH signal over GPIO to controller
+     device.on()
+
+     # leave it HIGH for 300ms
+     sleep(.3)
+
+     # turn it off
+     device.off()
+
+     print("DONE")
